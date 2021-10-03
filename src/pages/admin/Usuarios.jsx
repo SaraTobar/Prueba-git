@@ -4,21 +4,21 @@ import Swal from 'sweetalert2'
 import { Link } from 'react-router-dom';
 import './Main.css'
 
-const Ventas = () => {
+const Usuarios = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
-    const [ventas, setProductos] = useState([]);
+    const [usuarios, setUsuarios] = useState([]);
 
     useEffect(() => {
-        const ObtenerVentas = async () => {
+        const ObtenerUsuarios = async () => {
             const options = {
                 method: 'GET',
-                url: 'https://api.appery.io/rest/1/db/collections/Ventas/',
+                url: ' https://api.appery.io/rest/1/db/collections/Usuarios/',
                 headers: { "X-Appery-Database-Id": "615884472e22d70eed30f6a8", "Content-Type": "application/json" }
             };
             await axios
                 .request(options)
                 .then(function (response) {
-                    setProductos(response.data);
+                    setUsuarios(response.data);
                 })
                 .catch(function (error) {
                     console.error(error);
@@ -27,7 +27,7 @@ const Ventas = () => {
 
         //obtener lista de vehículos desde el backend
         if (mostrarTabla) {
-            ObtenerVentas();
+            ObtenerUsuarios();
         }
     }, [mostrarTabla]);
 
@@ -55,7 +55,7 @@ const Ventas = () => {
                     </div>
                 </div>
                 <div className="text-green-300 mt-9">
-                    <h1 className="text-5xl">Ventas</h1>
+                    <h1 className="text-5xl">Usuario</h1>
                 </div>
                 <div className="flex items-center">
                     <div className="overflow-auto lg:overflow-visible h-full w-full items-center">
@@ -63,33 +63,29 @@ const Ventas = () => {
                             <table className="table ventas text-gray-400 border-separate space-y-6 text-sm">
                                 <thead className="bg-gray-800 text-gray-100">
                                     <tr>
-                                        <th className="p-3 items-center justify-center ">Id Cliente</th>
-                                        <th className="p-3 items-center justify-center ">Nombre Cliente</th>
+                                        <th className="p-3 items-center justify-center ">Id</th>
                                         <th className="p-3 items-center justify-center ">Nombre</th>
-                                        <th className="p-3 items-center justify-center ">Valor</th>
-                                        <th className="p-3 items-center justify-center ">Cantidad</th>
-                                        <th className="p-3 items-center justify-center ">Total de venta</th>
-                                        <th className="p-3 items-center justify-center ">Fecha</th>
+                                        <th className="p-3 items-center justify-center ">Usuario</th>
+                                        <th className="p-3 items-center justify-center ">Rol</th>
+                                        <th className="p-3 items-center justify-center ">Estado</th>
                                         <th className="p-3 items-center justify-center ">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {ventas.map(venta => {
+                                    {usuarios.map(user => {
                                         return <TableItem
-                                            IdCliente={venta.IdCliente}
-                                            nombreCliente={venta.NombreCliente}
-                                            nombre={venta.Name}
-                                            valor={venta.ValuePerUnit}
-                                            cantidad={venta.Quantity}
-                                            fecha={venta._createdAt}
-                                            total={venta.ValuePerUnit * venta.Quantity} />
+                                            Id={user._id}
+                                            nombre={user.Nombre}
+                                            userName={user.userName}
+                                            rol={user.Rol}
+                                            estado={user.Estado} />
                                     })}
                                 </tbody>
                             </table>
                         </div>
                         <div>
                             <Link to="/admin/crear-venta">
-                                <button className=" mt-5 p-2 pl-5 pr-5 bg-green-300 text-gray-800 hover:bg-green-800 hover:text-gray-200 text-lg rounded-lg focus:border-4 border-blue-300">Agregar Venta</button>
+                                <button className="mt-5 p-2 pl-5 pr-5 bg-green-300 text-gray-800 hover:bg-green-800 hover:text-gray-200 text-lg rounded-lg focus:border-4 border-blue-300">Agregar Usuario</button>
                             </Link>
                         </div>
                     </div>
@@ -100,17 +96,12 @@ const Ventas = () => {
     )
 }
 
-const TableItem = ({ nombre, valor, cantidad, fecha, IdCliente, nombreCliente, total }) => {
+const TableItem = ({ Id, nombre, userName, rol, estado }) => {
     return (
         <tr className="bg-gray-800 text-gray-100">
             <td className="p-3 justify-center items-center">
 
-                <div >{IdCliente}</div>
-
-            </td>
-            <td className="p-3 justify-center items-center">
-
-                <div >{nombreCliente}</div>
+                <div >{Id}</div>
 
             </td>
             <td className="p-3 justify-center items-center">
@@ -119,25 +110,20 @@ const TableItem = ({ nombre, valor, cantidad, fecha, IdCliente, nombreCliente, t
 
             </td>
             <td className="p-3 justify-center items-center">
-                $ {valor}
-            </td>
-            <td className="p-3 justify-center items-center font-bold">
 
-                {cantidad}
-
-            </td>
-            <td className="p-3 justify-center items-center font-bold">
-
-
-                <strong>$ {total}</strong>
+                <div >{userName}</div>
 
             </td>
             <td className="p-3 justify-center items-center">
+                {rol}
+            </td>
+            <td className="p-3 justify-center items-center font-bold">
 
-                {fecha}
+                {estado}
+
             </td>
             <td className="p-3 justify-center items-center">
-                <Link to="/admin/crear-venta">
+                <Link to={`/admin/detalle-usuario/${Id}`} >
                     <i class='bx bx-edit-alt' aria-label="Editar"></i>
                 </Link>
             </td>
@@ -145,4 +131,5 @@ const TableItem = ({ nombre, valor, cantidad, fecha, IdCliente, nombreCliente, t
     );
 };
 
-export default Ventas
+
+export default Usuarios

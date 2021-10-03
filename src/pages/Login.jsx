@@ -4,9 +4,6 @@ import { Link } from 'react-router-dom'
 
 
 const Login = () => {
-
-
-
     return (
         <div className="min-h-screen bg-cover bg-center img-logi" >
             <div className="flex justify-end ">
@@ -17,11 +14,11 @@ const Login = () => {
                             <h1 className="text-2xl font-bold">Inicie sesión</h1>
                         </div>
                         <div className="my-3">
-                            <label className="block text-md mb-2" for="email">Correo</label>
+                            <label className="block text-md mb-2" htmlFor="email">Correo</label>
                             <input required className="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" type="email" name="password" placeholder="Correo" />
                         </div>
                         <div className="mt-5">
-                            <label className="block text-md mb-2" for="password">Contraseña</label>
+                            <label className="block text-md mb-2" htmlFor="password">Contraseña</label>
                             <input required className="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" type="password" name="password" placeholder="Contraseña" />
                         </div>
 
