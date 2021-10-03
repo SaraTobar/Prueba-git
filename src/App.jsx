@@ -29,6 +29,11 @@ function App() {
                 </Admin>
               </Route>
               {/* TODO: Route para detalle venta con :id */}
+              <Route path="/admin/detalle-Venta/:id">
+                <Admin>
+                  <DetalleVenta />
+                </Admin>
+              </Route>
               <Route path="/admin/detalle-producto/:id">
                 <Admin>
                   <DetalleProducto />

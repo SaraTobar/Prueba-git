@@ -1,17 +1,128 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import {
+    useParams
+} from "react-router-dom";
+import axios from 'axios';
+import Swal from 'sweetalert2'
 
 const DetalleVenta = () => {
+    const [valor, setValor] = useState("");
+    const [nombre, setNombre] = useState("");
+    const [cantidad, setCantidad] = useState("");
+    const [total, setTotal] = useState("");
+    const [ventas, setVentas] = useState([]);
+
+    const [mostrarTabla, setMostrarTabla] = useState(true);
+
+    let { id } = useParams();
+    
+
+    useEffect(() => {
+        const ObtenerVentas = async () => {
+            const options = {
+                method: 'GET',
+                url: `https://api.appery.io/rest/1/db/collections/Ventas/${id}`,
+                headers: { "X-Appery-Database-Id": "615884472e22d70eed30f6a8", "Content-Type": "application/json" }
+            };
+            await axios
+                .request(options)
+                .then(function (response) {
+                    // response.data
+                    setVentas(response.data);
+                    setNombre(ventas.nombre);
+                    setCantidad(ventas.cantidad);
+                    setValor(ventas.valor);
+                    setTotal(ventas.Total);
+
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+        };
+
+        
+        if (mostrarTabla) {
+            ObtenerVentas();
+        }
+    }, [mostrarTabla]);
+
+
+    const guardar = async () => {
+        const options = {
+            method: 'PUT',
+            url: `https://api.appery.io/rest/1/db/collections/Ventas/${id}`,
+            headers: { "X-Appery-Database-Id": "615884472e22d70eed30f6a8", "Content-Type": "application/json" },
+            data: {
+                "Nombre": nombre,
+                "Cantidad": cantidad,
+                "Valor": valor,
+                "Total": total,
+            }
+        };
+        console.log(options);
+        await axios
+            .request(options)
+            .then(function (response) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Ventas Modificadas con exito',
+                    showConfirmButton: false,
+                    timer: 2500
+                }).then((x) => {
+
+                })
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+    }
     return (
         <div>
-            TODO:
-            0 importar useparams() como en detalle procuto;
-            1 html del formulario de creacion venta
-            2 useeffect (consulta basado en id) --- setStates para cada campo
-            3 ir a cada input y agregar el value = a cada estado
-            4 guardar: pasar el id al metodo guardar con PUT, cambiar swal text.
+               <div className="flex-row items-center justify-center min-h-screen min-w-full px-5 py-12 lg:px-20 bg-gray-900">
+            <div className="flex-col w-full text-green-400 text-3xl "> Ventas: {id}</div>
+            <div className="flex-col w-full ">
+                <form className="flex flex-col w-full p-10 px-8 pt-6 mx-auto my-6 mb-4 transition duration-500 ease-in-out transform bg-white border rounded-lg lg:w-1/2 ">
+                    <div className="relative pt-4">
+                        <label for="name" className="text-base leading-7 text-blueGray-500">Nombre del Producto</label>
+                        <input required value ={nombre} onChange={(x) => { setNombre(x.target.value) }} type="text" id="name" name="name" placeholder="nombre " className="w-full px-4 py-2 mt-2 mr-4 text-base text-black transition duration-500 ease-in-out transform rounded-lg bg-gray-100 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2" />
+                    </div>
+                    <div className="relative pt-4">
+                        <label for="name" className="text-base leading-7 text-blueGray-500 text-center">Valor por unidad</label>
+                        <input required value={valor} onChange={(x) => { setValor(x.target.value); }} type="number" id="number" name="number" placeholder="numero" className="w-full px-4 py-2 mt-2 mr-4 text-base text-black transition duration-500 ease-in-out transform rounded-lg bg-gray-100 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2" />
+                    </div>
+                    <div className="relative pt-4">
+                        <label for="name" className="text-base leading-7 text-blueGray-500">Fecha de venta</label>
+                        <input required  onChange={(x) => { setfecha(x.target.value) }} type="date" id="date" name="date" placeholder="Fecha" className="w-full px-4 py-2 mt-2 mr-4 text-base text-black transition duration-500 ease-in-out transform rounded-lg bg-gray-100 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2" />
+                    </div>
 
+                    <div className="relative pt-4">
+                        <label for="name" className="text-base leading-7 text-blueGray-500 m-4">Cantidad</label>
+                        <input required value={cantidad} type="range" defaultValue={1} min={1} max={10} onChange={(x) => { setCantidad(x.target.value); }}
+                            className="w-full px-0 py-2 mt-2 mr-4 text-base  
+                        text-green-600 
+                        transition duration-500 
+                        ease-in-out transform rounded-lg 
+                        bg-green-600 " />
+                        <span>{nroItems}</span>
+                    </div>
+                    <div className="flex flex-wrap mt-4 mb-6 -mx-3">
+                        <div className="w-full px-3">
+                            <label className="text-base leading-7 text-blueGray-500 " for="description">Total de la venta: </label>
+                            <span>{`$ ${nroItems * valor} USD`}</span>
+                        </div>
+                    </div>
+
+                    <div className="flex items-center w-full pt-4 mb-4">
+                        <input type="button" onClick={(x) => { guardar() }}
+                            className="w-full py-3 text-base text-white transition duration-500 ease-in-out transform bg-green-400  rounded-md focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2 hover:bg-green-900 " value={"Guardar"} />
+                    </div>
+                </form>
+            </div>
+        </div>
         </div>
     )
 }
+
 
 export default DetalleVenta

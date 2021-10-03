@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import image from "../../img/productos/g915-gallery-1.webp"
+import logo from "../admin/logo.PNG"
 const Admin = ({ children }) => {
     return (
 
@@ -10,8 +10,7 @@ const Admin = ({ children }) => {
                 <div className="min-h-screen flex flex-col bg-gray-100">
                     <div className="flex flex-col w-56 bg-white rounded-r-3xl overflow-hidden">
                         <div className="flex items-center justify-center h-20 shadow-md">
-                            <h1>Admon</h1>
-                            <img src={image} />
+                            <img src={logo} />
                         </div>
                         <ul className="flex flex-col py-4">
                             <li>

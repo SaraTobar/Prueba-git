@@ -35,7 +35,7 @@ const CrearVenta = () => {
                     icon: 'success',
                     title: 'Venta guardada con exito',
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 3000
                 }).then((x) => {
 
                 })

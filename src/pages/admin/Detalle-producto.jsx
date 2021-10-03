@@ -28,7 +28,6 @@ const DetalleProducto = () => {
                 .then(function (response) {
                     // response.data
                     setProducto(response.data);
-
                     setNombre(producto.Nombre);
                     setValor(producto.Valor);
                     setInventario(producto.inventario);
