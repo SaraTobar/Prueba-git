@@ -10,6 +10,8 @@ const DetalleVenta = () => {
   const [total, setTotal] = useState("");
   const [fecha, setFecha] = useState(new Date());
   const [ventas, setVentas] = useState([]);
+  const [idCliente, setIdCliente] = useState(0);
+  const [nomcliente, setNomcliente] = useState(0);
 
   const [mostrarTabla, setMostrarTabla] = useState(true);
 
@@ -37,6 +39,8 @@ const DetalleVenta = () => {
           setValor(response.data.ValuePerUnit);
           setFecha(response.data.Fecha.split("T")[0]);
           setTotal(response.data.Total);
+          setIdCliente(response.data.IdCliente)
+          setNomcliente(response.data.NombreCliente)
         })
         .catch(function (error) {
           console.error(error);
@@ -62,6 +66,9 @@ const DetalleVenta = () => {
         ValuePerUnit: valor,
         Fecha: fecha,
         Total: total,
+        NombreCliente: nomcliente,
+        IdCliente: idCliente
+
       },
     };
 
@@ -83,7 +90,7 @@ const DetalleVenta = () => {
   return (
     <div>
       <div className="flex-row items-center justify-center min-h-screen min-w-full px-5 py-12 lg:px-20 bg-gray-900">
-        <div className="flex-col w-full text-green-400 text-3xl ">
+        <div className="flex-col w-full text-green-400 text-3xl font-bold ">
           {" "}
           Ventas: {id}
         </div>
@@ -92,7 +99,7 @@ const DetalleVenta = () => {
             <div className="relative pt-4">
               <label
                 for="name"
-                className="text-base leading-7 text-blueGray-500"
+                className="text-base leading-7 text-blueGray-500 font-semibold"
               >
                 Nombre del Producto
               </label>
@@ -112,7 +119,7 @@ const DetalleVenta = () => {
             <div className="relative pt-4">
               <label
                 for="name"
-                className="text-base leading-7 text-blueGray-500 text-center"
+                className="text-base leading-7 text-blueGray-500 text-center font-semibold"
               >
                 Valor por unidad
               </label>
@@ -132,7 +139,7 @@ const DetalleVenta = () => {
             <div className="relative pt-4">
               <label
                 for="name"
-                className="text-base leading-7 text-blueGray-500"
+                className="text-base leading-7 text-blueGray-500 font-semibold"
               >
                 Fecha de venta
               </label>
@@ -149,11 +156,52 @@ const DetalleVenta = () => {
                 className="w-full px-4 py-2 mt-2 mr-4 text-base text-black transition duration-500 ease-in-out transform rounded-lg bg-gray-100 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2"
               />
             </div>
+            <div className="relative pt-4">
+              <label
+                for="name"
+                className="text-base leading-7 text-blueGray-500 font-semibold"
+              >
+                Id Cliente
+              </label>
+              <input
+                required
+                value={idCliente}
+                onChange={(x) => {
+                  setIdCliente(x.target.value);
+                }}
+                type="number"
+                id="id cliente"
+                name="date"
+                placeholder="Id cliente"
+                className="w-full px-4 py-2 mt-2 mr-4 text-base text-black transition duration-500 ease-in-out transform rounded-lg bg-gray-100 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2"
+              />
+            </div>
 
             <div className="relative pt-4">
               <label
                 for="name"
-                className="text-base leading-7 text-blueGray-500 m-4"
+                className="text-base leading-7 text-blueGray-500 font-semibold"
+              >
+                Nombre Ciente
+              </label>
+              <input
+                required
+                value={nomcliente}
+                onChange={(x) => {
+                  setNomcliente(x.target.value);
+                }}
+                type="text"
+                id="Nombre Cliente"
+                name="date"
+                placeholder="Nombre Cliente"
+                className="w-full px-4 py-2 mt-2 mr-4 text-base text-black transition duration-500 ease-in-out transform rounded-lg bg-gray-100 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2"
+              />
+            </div>
+
+            <div className="relative pt-4">
+              <label
+                for="name"
+                className="text-base leading-7 text-blueGray-500 m-4 font-semibold"
               >
                 Cantidad
               </label>
@@ -178,7 +226,7 @@ const DetalleVenta = () => {
             <div className="flex flex-wrap mt-4 mb-6 -mx-3">
               <div className="w-full px-3">
                 <label
-                  className="text-base leading-7 text-blueGray-500 "
+                  className="text-base leading-7 text-blueGray-500 font-semibold "
                   for="description"
                 >
                   Total de la venta:{" "}
@@ -187,7 +235,7 @@ const DetalleVenta = () => {
               </div>
             </div>
 
-            <div className="flex items-center w-full pt-4 mb-4">
+            <div className="flex items-center w-full pt-4 mb-4 font-semibold">
               <input
                 type="button"
                 onClick={(x) => {

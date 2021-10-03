@@ -8,6 +8,7 @@ const CrearVenta = () => {
   const [nombre, setnombre] = useState(0);
   const [fecha, setfecha] = useState(0);
   const [idCliente, setIdCliente] = useState(0);
+  const [nomcliente, setNomcliente] = useState(0);
 
   // const [textoBoton, setTextoBoton] = useState('Crear Nuevo Vehículo');
   // const [colorBoton, setColorBoton] = useState('indigo');
@@ -25,7 +26,7 @@ const CrearVenta = () => {
         ValuePerUnit: valor,
         Fecha: fecha,
         Total: nroItems * valor,
-        NombreCliente: "TODO",
+        NombreCliente: nomcliente,
         IdCliente: idCliente,
       },
     };
@@ -48,13 +49,13 @@ const CrearVenta = () => {
 
   return (
     <div className="flex-row items-center justify-center min-h-screen min-w-full px-5 py-12 lg:px-20 bg-gray-900">
-      <div className="flex-col w-full text-green-400 text-3xl ">
+      <div className="flex-col w-full text-green-400 text-3xl font-bold ">
         Registrar Ventas
       </div>
       <div className="flex-col w-full ">
-        <form className="flex flex-col w-full p-10 px-8 pt-6 mx-auto my-6 mb-4 transition duration-500 ease-in-out transform bg-white border rounded-lg lg:w-1/2 ">
+        <form className="flex flex-col w-full p-10 px-8 pt-6 mx-auto my-6 mb-4 transition duration-500 ease-in-out transform bg-white border rounded-lg lg:w-1/2">
           <div className="relative pt-4">
-            <label for="name" className="text-base leading-7 text-blueGray-500">
+            <label for="name" className="text-base leading-7 text-blueGray-500 font-semibold">
               Nombre del Producto
             </label>
             <input
@@ -65,14 +66,14 @@ const CrearVenta = () => {
               type="text"
               id="name"
               name="name"
-              placeholder="nombre "
+              placeholder="Nombre producto"
               className="w-full px-4 py-2 mt-2 mr-4 text-base text-black transition duration-500 ease-in-out transform rounded-lg bg-gray-100 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2"
             />
           </div>
           <div className="relative pt-4">
             <label
               for="name"
-              className="text-base leading-7 text-blueGray-500 text-center"
+              className="text-base leading-7 text-blueGray-500 text-center font-semibold"
             >
               Valor por unidad
             </label>
@@ -84,12 +85,12 @@ const CrearVenta = () => {
               type="number"
               id="number"
               name="number"
-              placeholder="numero"
+              placeholder="Precio producto por unidad"
               className="w-full px-4 py-2 mt-2 mr-4 text-base text-black transition duration-500 ease-in-out transform rounded-lg bg-gray-100 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2"
             />
           </div>
           <div className="relative pt-4">
-            <label for="name" className="text-base leading-7 text-blueGray-500">
+            <label for="name" className="text-base leading-7 text-blueGray-500 font-semibold">
               Fecha de venta
             </label>
             <input
@@ -105,8 +106,8 @@ const CrearVenta = () => {
             />
           </div>
           <div className="relative pt-4">
-            <label for="name" className="text-base leading-7 text-blueGray-500">
-              Identificacion del cliente
+            <label for="name" className="text-base leading-7 text-blueGray-500 font-semibold">
+              Identificación del cliente
             </label>
             <input
               required
@@ -119,11 +120,29 @@ const CrearVenta = () => {
               placeholder="Id cliente"
               className="w-full px-4 py-2 mt-2 mr-4 text-base text-black transition duration-500 ease-in-out transform rounded-lg bg-gray-100 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2"
             />
+            
+          </div>
+          <div className="relative pt-4">
+            <label for="name" className="text-base leading-7 text-blueGray-500 font-semibold">
+              Nombre Cliente
+            </label>
+            <input
+              required
+              onChange={(x) => {
+                setNomcliente(x.target.value);
+              }}
+              type="text"
+              id="idCliente"
+              name="idCliente"
+              placeholder="Nombre Cliente"
+              className="w-full px-4 py-2 mt-2 mr-4 text-base text-black transition duration-500 ease-in-out transform rounded-lg bg-gray-100 focus:border-blueGray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2"
+            />
+            
           </div>{" "}
           <div className="relative pt-4">
             <label
               for="name"
-              className="text-base leading-7 text-blueGray-500 m-4"
+              className="text-base leading-7 text-blueGray-500 m-4 font-semibold"
             >
               Cantidad
             </label>

@@ -4,13 +4,17 @@ import logo from "../admin/logo.PNG"
 const Admin = ({ children }) => {
     return (
 
-        <div className="flex w-screen h-screen">
+        <div className="flex w-screen h-screen sm:flex">
             <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" />
             <div className="flex flex-col md:flex-row flex-nowrap h-full ">
                 <div className="min-h-screen flex flex-col bg-gray-100">
                     <div className="flex flex-col w-56 bg-white rounded-r-3xl overflow-hidden">
                         <div className="flex items-center justify-center h-20 shadow-md">
-                            <img src={logo} />
+                        <img src={logo} href ="/admin" />
+                            <Link to= "/admin" className = "hover:translate-x-2 h-12 transform">
+                            <img src={logo} href ="/admin" />
+                                </Link>
+                            
                         </div>
                         <ul className="flex flex-col py-4">
                             <li>

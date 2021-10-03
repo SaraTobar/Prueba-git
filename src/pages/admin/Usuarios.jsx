@@ -36,7 +36,7 @@ const Usuarios = () => {
         <div>
             <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
                 rel="stylesheet" />
-            <div className="space-x-2 p-10 flex-row items-center justify-center min-h-screen min-w-full bg-gray-900">
+            <div className="flex-row items-center justify-center min-h-screen min-w-full px-5 py-12 lg:px-20 bg-gray-900">
                 <div className="">
                     <div class="flex items-center max-w-md mx-auto bg-white rounded-full " x-data="{ search: '' }">
                         <div class="w-full">
@@ -54,8 +54,8 @@ const Usuarios = () => {
                         </div>
                     </div>
                 </div>
-                <div className="text-green-300 mt-9">
-                    <h1 className="text-5xl">Usuario</h1>
+                <div className="text-green-300 mt-9 font-semibold">
+                    <h1 className="text-5xl">Usuarios</h1>
                 </div>
                 <div className="flex items-center">
                     <div className="overflow-auto lg:overflow-visible h-full w-full items-center">
