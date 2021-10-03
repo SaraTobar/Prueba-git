@@ -1,16 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import Admin from './pages/admin/Index';
-import Login from './pages/Login';
-import Ventas from './pages/admin/Ventas';
-import CrearVenta from './pages/admin/Crear-venta';
-import Productos from './pages/admin/Productos';
-import CrearProducto from './pages/admin/Crear-Producto';
-import Usuarios from './pages/admin/Usuarios';
-import DetalleUsuario from './pages/admin/Detalle-Usuario';
-import DetalleProducto from './pages/admin/Detalle-producto';
-
+import logo from "./logo.svg";
+import "./App.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Admin from "./pages/admin/Index";
+import Login from "./pages/Login";
+import Ventas from "./pages/admin/Ventas";
+import CrearVenta from "./pages/admin/Crear-venta";
+import Productos from "./pages/admin/Productos";
+import CrearProducto from "./pages/admin/Crear-Producto";
+import Usuarios from "./pages/admin/Usuarios";
+import DetalleUsuario from "./pages/admin/Detalle-Usuario";
+import DetalleProducto from "./pages/admin/Detalle-producto";
+import DetalleVenta from "./pages/admin/Detalle-Venta";
 function App() {
   return (
     <div className="App">
@@ -71,7 +71,7 @@ function App() {
           </Route>
         </Switch>
       </Router>
-    </div >
+    </div>
   );
 }
 
