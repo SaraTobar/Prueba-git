@@ -50,7 +50,7 @@ const Ventas = () => {
               <input
                 type="search"
                 class="w-full px-4 py-1 text-gray-900 rounded-full focus:outline-none"
-                placeholder="search"
+                placeholder="Search"
                 x-model="search"
               />
             </div>
@@ -78,7 +78,7 @@ const Ventas = () => {
           </div>
         </div>
         <div className="text-green-300 mt-9">
-          <h1 className="text-5xl">Ventas</h1>
+          <h1 className="text-5xl font-semibold">Ventas</h1>
         </div>
         <div className="flex items-center">
           <div className="overflow-auto lg:overflow-visible h-full w-full items-center">

@@ -10,9 +10,9 @@ const Admin = ({ children }) => {
                 <div className="min-h-screen flex flex-col bg-gray-100">
                     <div className="flex flex-col w-56 bg-white rounded-r-3xl overflow-hidden">
                         <div className="flex items-center justify-center h-20 shadow-md">
-                        <img src={logo} href ="/admin" />
+                        
                             <Link to= "/admin" className = "hover:translate-x-2 h-12 transform">
-                            <img src={logo} href ="/admin" />
+                            <img src= {logo} />
                                 </Link>
                             
                         </div>

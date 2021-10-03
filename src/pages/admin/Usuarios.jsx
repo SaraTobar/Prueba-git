@@ -41,7 +41,7 @@ const Usuarios = () => {
                     <div class="flex items-center max-w-md mx-auto bg-white rounded-full " x-data="{ search: '' }">
                         <div class="w-full">
                             <input type="search" class="w-full px-4 py-1 text-gray-900 rounded-full focus:outline-none"
-                                placeholder="search" x-model="search" />
+                                placeholder="Search" x-model="search" />
                         </div>
                         <div>
                             <button type="submit" class="bg-green-300 flex items-center justify-center w-12 h-12 text-gray-100 rounded-full">
@@ -60,7 +60,7 @@ const Usuarios = () => {
                 <div className="flex items-center">
                     <div className="overflow-auto lg:overflow-visible h-full w-full items-center">
                         <div className="flex w-full justify-center items-center ">
-                            <table className="table ventas text-gray-400 border-separate space-y-6 text-sm">
+                            <table className="table usuarios text-gray-400 border-separate space-y-6 text-sm">
                                 <thead className="bg-gray-800 text-gray-100">
                                     <tr>
                                         <th className="p-3 items-center justify-center ">Id</th>

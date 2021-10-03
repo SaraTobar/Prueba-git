@@ -78,7 +78,7 @@ const DetalleVenta = () => {
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: "Ventas Modificadas con exito",
+          title: "Venta Modificada con exito",
           showConfirmButton: false,
           timer: 2500,
         }).then((x) => {});
@@ -92,7 +92,7 @@ const DetalleVenta = () => {
       <div className="flex-row items-center justify-center min-h-screen min-w-full px-5 py-12 lg:px-20 bg-gray-900">
         <div className="flex-col w-full text-green-400 text-3xl font-bold ">
           {" "}
-          Ventas: {id}
+          Venta: {id}
         </div>
         <div className="flex-col w-full ">
           <form className="flex flex-col w-full p-10 px-8 pt-6 mx-auto my-6 mb-4 transition duration-500 ease-in-out transform bg-white border rounded-lg lg:w-1/2 ">

@@ -50,7 +50,7 @@ const Productos = () => {
               <input
                 type="search"
                 class="w-full px-4 py-1 text-gray-900 rounded-full focus:outline-none"
-                placeholder="search"
+                placeholder="Search"
                 x-model="search"
               />
             </div>
@@ -78,7 +78,7 @@ const Productos = () => {
           </div>
         </div>
         <div className="text-green-300 mt-9">
-          <h1 className="text-5xl">Productos</h1>
+          <h1 className="text-5xl font-semibold">Productos</h1>
         </div>
         <div className="flex items-center">
           <div className="overflow-auto lg:overflow-visible h-full w-full items-center">
@@ -112,7 +112,7 @@ const Productos = () => {
             </div>
             <div>
               <Link to="/admin/crear-producto">
-                <button className=" mt-5 p-2 pl-5 pr-5 bg-green-300 text-gray-100 text-lg rounded-lg focus:border-4 border-blue-300">
+                <button className=" mt-5 p-2 pl-5 pr-5 bg-green-300 text-gray-800 hover:bg-green-800 hover:text-gray-200 text-lg rounded-lg focus:border-4 border-blue-300">
                   Agregar Producto
                 </button>
               </Link>

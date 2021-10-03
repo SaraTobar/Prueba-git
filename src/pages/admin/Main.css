@@ -13,7 +13,10 @@ i {
 .productos tr td:nth-child(n+6),
 .productos tr th:nth-child(n+6),
 .ventas tr td:nth-child(n+8),
-.ventas tr th:nth-child(n+8) {
+.ventas tr th:nth-child(n+8),
+.usuarios tr td:nth-child(n+8),
+.usuarios tr th:nth-child(n+8)
+ {
     border-radius: 0 .625rem .625rem 0;
 }
 
