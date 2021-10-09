@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import "./Main.css";
 import _, { filter } from "underscore";
+import { Dialog, Tooltip } from '@material-ui/core';
 
 const Usuarios = () => {
   const [mostrarTabla, setMostrarTabla] = useState(true);
@@ -128,6 +129,7 @@ const Usuarios = () => {
                         userName={user.userName}
                         rol={user.Rol}
                         estado={user.Estado}
+                        refresh={ObtenerUsuarios}
                       />
                     );
                   })}
@@ -148,7 +150,42 @@ const Usuarios = () => {
   );
 };
 
-const TableItem = ({ Id, nombre, userName, rol, estado }) => {
+const TableItem = ({ Id, nombre, userName, rol, estado, refresh }) => {
+    const borrarItem = async () => {
+        Swal.fire({
+          title: `Estas seguro de borrar el Usuario ${userName}?`,
+          text: "Esta acción no se puede deshacer",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Si, borrar!",
+          showLoaderOnConfirm: true,
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            const options = {
+              method: "DELETE",
+              url: `https://api.appery.io/rest/1/db/collections/Usuarios/${Id}`,
+              headers: {
+                "X-Appery-Database-Id": "615884472e22d70eed30f6a8",
+                "Content-Type": "application/json",
+              },
+            };
+            await axios
+              .request(options)
+              .then(function (response) {
+                Swal.fire("Borrado!", "El Usuario ha sido borrado", "success").then(
+                  (x) => {
+                    refresh();
+                  }
+                );
+              })
+              .catch(function (error) {
+                console.error(error);
+              });
+          }
+        });
+      };
   return (
     <tr className="bg-gray-800 text-gray-100">
       <td className="p-3 justify-center items-center">
@@ -163,9 +200,21 @@ const TableItem = ({ Id, nombre, userName, rol, estado }) => {
       <td className="p-3 justify-center items-center">{rol}</td>
       <td className="p-3 justify-center items-center font-bold">{estado}</td>
       <td className="p-3 justify-center items-center">
+      <Tooltip title='Editar Producto' arrow>
         <Link to={`/admin/detalle-usuario/${Id}`}>
-          <i class="bx bx-edit-alt" aria-label="Editar"></i>
+          <i class="bx bx-edit-alt hover:text-yellow-300" aria-label="Editar"></i>
         </Link>
+        </Tooltip>
+        <Tooltip title='Borrar Producto' arrow>
+        <button
+          className="pl-4"
+          onClick={(x) => {
+            borrarItem();
+          }}
+        >
+          <i className="bx bx-trash hover:text-red-600"></i>
+        </button>
+        </Tooltip>
       </td>
     </tr>
   );

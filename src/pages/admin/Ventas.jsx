@@ -3,31 +3,32 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import "./Main.css";
+import { Dialog, Tooltip } from '@material-ui/core';
 
 const Ventas = () => {
   const [mostrarTabla, setMostrarTabla] = useState(true);
   const [ventas, setProductos] = useState([]);
 
-  useEffect(() => {
-    const ObtenerVentas = async () => {
-      const options = {
-        method: "GET",
-        url: "https://api.appery.io/rest/1/db/collections/Ventas/",
-        headers: {
-          "X-Appery-Database-Id": "615884472e22d70eed30f6a8",
-          "Content-Type": "application/json",
-        },
-      };
-      await axios
-        .request(options)
-        .then(function (response) {
-          setProductos(response.data);
-        })
-        .catch(function (error) {
-          console.error(error);
-        });
+  const ObtenerVentas = async () => {
+    const options = {
+      method: "GET",
+      url: "https://api.appery.io/rest/1/db/collections/Ventas/",
+      headers: {
+        "X-Appery-Database-Id": "615884472e22d70eed30f6a8",
+        "Content-Type": "application/json",
+      },
     };
+    await axios
+      .request(options)
+      .then(function (response) {
+        setProductos(response.data);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
 
+  useEffect(() => {
     //obtener lista de vehículos desde el backend
     if (mostrarTabla) {
       ObtenerVentas();
@@ -118,6 +119,7 @@ const Ventas = () => {
                         fecha={venta._createdAt}
                         total={venta.ValuePerUnit * venta.Quantity}
                         id={venta._id}
+                        refresh={ObtenerVentas}
                       />
                     );
                   })}
@@ -147,7 +149,44 @@ const TableItem = ({
   nombreCliente,
   total,
   id,
+  refresh
 }) => {
+  const borrarItem = async () => {
+    Swal.fire({
+      title: `Estas seguro de borrar la venta de ${nombreCliente}?`,
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, borrar!",
+      showLoaderOnConfirm: true,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const options = {
+          method: "DELETE",
+          url: `https://api.appery.io/rest/1/db/collections/Ventas/${id}`,
+          headers: {
+            "X-Appery-Database-Id": "615884472e22d70eed30f6a8",
+            "Content-Type": "application/json",
+          },
+        };
+        await axios
+          .request(options)
+          .then(function (response) {
+            Swal.fire("Borrado!", "Tu venta ha sido borrada", "success").then(
+              (x) => {
+                refresh();
+              }
+            );
+          })
+          .catch(function (error) {
+            console.error(error);
+          });
+      }
+    });
+  };
+
   return (
     <tr className="bg-gray-800 text-gray-100">
       <td className="p-3 justify-center items-center">
@@ -166,9 +205,21 @@ const TableItem = ({
       </td>
       <td className="p-3 justify-center items-center">{fecha}</td>
       <td className="p-3 justify-center items-center">
+      <Tooltip title='Editar Producto' arrow>
         <Link to={`/admin/detalle-venta/${id}`}>
-          <i class="bx bx-edit-alt" aria-label="Editar"></i>
+          <i class="bx bx-edit-alt hover:text-yellow-300" aria-label="Editar"></i>
         </Link>
+        </Tooltip>
+        <Tooltip title='Borrar Producto' arrow>
+        <button
+          className="pl-4"
+          onClick={(x) => {
+            borrarItem();
+          }}
+        >
+          <i className="bx bx-trash hover:text-red-600"></i>
+        </button>
+        </Tooltip>
       </td>
     </tr>
   );

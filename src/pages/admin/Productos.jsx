@@ -4,15 +4,13 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import "./Main.css";
 import _, { filter } from "underscore";
+import { Dialog, Tooltip } from '@material-ui/core';
 
 const Productos = () => {
   const [mostrarTabla, setMostrarTabla] = useState(true);
   const [productos, setProductos] = useState([]);
-  // const [productos, setProductos] = useState([]);
-  // const [filtro, setFiltro] = useState("");
 
   useEffect(() => {
-    //obtener lista de vehículos desde el backend
     if (mostrarTabla) {
       ObtenerProductos();
     }
@@ -129,6 +127,7 @@ const Productos = () => {
                         desc={prod.Descripcion}
                         valor={prod.Valor}
                         inventario={prod.inventario}
+                        refresh={ObtenerProductos}
                       />
                     );
                   })}
@@ -149,7 +148,42 @@ const Productos = () => {
   );
 };
 
-const TableItem = ({ nombre, valor, inventario, desc, Id }) => {
+const TableItem = ({ nombre, valor, inventario, desc, Id, refresh }) => {
+  const borrarItem = async () => {
+    Swal.fire({
+      title: `Estas seguro de borrar el producto ${nombre}?`,
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, borrar!",
+      showLoaderOnConfirm: true,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const options = {
+          method: "DELETE",
+          url: `https://api.appery.io/rest/1/db/collections/Productos/${Id}`,
+          headers: {
+            "X-Appery-Database-Id": "615884472e22d70eed30f6a8",
+            "Content-Type": "application/json",
+          },
+        };
+        await axios
+          .request(options)
+          .then(function (response) {
+            Swal.fire("Borrado!", "Tu producto ha sido borrado", "success").then(
+              (x) => {
+                refresh();
+              }
+            );
+          })
+          .catch(function (error) {
+            console.error(error);
+          });
+      }
+    });
+  };
   return (
     <tr className="bg-gray-800 text-gray-100">
       <td className="p-3">
@@ -171,10 +205,21 @@ const TableItem = ({ nombre, valor, inventario, desc, Id }) => {
       <td className="p-3 font-bold">{inventario}</td>
 
       <td className="p-3">
-        {/* //TODO: agergar id del producto */}
+        <Tooltip title='Editar Producto' arrow>
         <Link to={`/admin/detalle-producto/${Id}`}>
-          <i className="bx bx-edit-alt" aria-label="Editar"></i>
+          <i className="bx bx-edit-alt hover:text-yellow-300" aria-label="Editar"></i>
         </Link>
+        </Tooltip>
+        <Tooltip title='Borrar Producto' arrow>
+        <button
+          className="pl-4"
+          onClick={(x) => {
+            borrarItem();
+          }}
+        >
+          <i className="bx bx-trash hover:text-red-600"></i>
+        </button>
+        </Tooltip>
       </td>
     </tr>
   );
