@@ -4,7 +4,7 @@ import logo from "../admin/logo.PNG"
 const Admin = ({ children }) => {
     return (
 
-        <div className="flex w-screen h-screen sm:flex">
+        <div className="flex w-full h-full">
             <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" />
             <div className="flex flex-col md:flex-row flex-nowrap h-full ">
                 <div className="min-h-screen flex flex-col bg-gray-100">

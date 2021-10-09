@@ -12,6 +12,9 @@ const CrearProducto = () => {
 
 
     const guardar = async () => {
+
+        
+
         const options = {
             method: 'POST',
             url: 'https://api.appery.io/rest/1/db/collections/Productos/',
@@ -23,6 +26,7 @@ const CrearProducto = () => {
                 "inventario": inventario
             }
         };
+
         console.log(options);
         await axios
             .request(options)
@@ -43,9 +47,9 @@ const CrearProducto = () => {
     }
 
     return (
-        <div className="flex-row items-center justify-center min-h-screen min-w-full px-5 py-12 lg:px-20 bg-gray-900">
-            <div className="flex-col w-full text-green-400 text-3xl ">Registrar Producto</div>
-            <div className="flex-col w-full ">
+        <div className="flex-row h-full items-center justify-center min-h-screen min-w-full px-5 py-12 lg:px-20 bg-gray-900">
+            <div className="flex-col text-green-400 text-3xl ">Registrar Producto</div>
+            <div className="flex-col w-full">
                 <form className="flex flex-col w-full p-10 px-8 pt-6 mx-auto my-6 mb-4 transition duration-500 ease-in-out transform bg-white border rounded-lg lg:w-1/2 ">
                     <div className="relative pt-4">
                         <label for="name" className="text-base leading-7 text-blueGray-500">Nombre del Producto</label>

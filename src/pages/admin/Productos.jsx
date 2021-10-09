@@ -3,36 +3,55 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import "./Main.css";
+import _, { filter } from "underscore";
 
 const Productos = () => {
   const [mostrarTabla, setMostrarTabla] = useState(true);
   const [productos, setProductos] = useState([]);
+  // const [productos, setProductos] = useState([]);
+  // const [filtro, setFiltro] = useState("");
 
   useEffect(() => {
-    const ObtenerProductos = async () => {
-      const options = {
-        method: "GET",
-        url: "https://api.appery.io/rest/1/db/collections/Productos/",
-        headers: {
-          "X-Appery-Database-Id": "615884472e22d70eed30f6a8",
-          "Content-Type": "application/json",
-        },
-      };
-      await axios
-        .request(options)
-        .then(function (response) {
-          setProductos(response.data);
-        })
-        .catch(function (error) {
-          console.error(error);
-        });
-    };
-
     //obtener lista de vehículos desde el backend
     if (mostrarTabla) {
       ObtenerProductos();
     }
   }, [mostrarTabla]);
+
+  const ObtenerProductos = async () => {
+    const options = {
+      method: "GET",
+      url: "https://api.appery.io/rest/1/db/collections/Productos/",
+      headers: {
+        "X-Appery-Database-Id": "615884472e22d70eed30f6a8",
+        "Content-Type": "application/json",
+      },
+    };
+    await axios
+      .request(options)
+      .then(function (response) {
+        setProductos(response.data);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
+  const aplicarFiltro = (filtro) => {
+    var filtered = _(productos).filter((p) => {
+      return (
+        p._id.toLowerCase().includes(filtro.toLowerCase()) ||
+        p.Descripcion.toLowerCase().includes(filtro.toLowerCase())
+      );
+    });
+
+    setProductos(filtered);
+    console.log(filtered);
+  };
+
+  const limpiarFiltro = () => {
+    ObtenerProductos();
+  };
 
   return (
     <div>
@@ -43,13 +62,19 @@ const Productos = () => {
       <div className="space-x-2 p-10 flex-row items-center justify-center min-h-screen min-w-full bg-gray-900">
         <div className="">
           <div
-            class="flex items-center max-w-md mx-auto bg-white rounded-full "
+            className="flex items-center max-w-md mx-auto bg-white rounded-full "
             x-data="{ search: '' }"
           >
-            <div class="w-full">
+            <div className="w-full">
               <input
                 type="search"
-                class="w-full px-4 py-1 text-gray-900 rounded-full focus:outline-none"
+                onChange={(x) => {
+                  aplicarFiltro(x.target.value);
+                  if (x.target.value.length == 0) {
+                    limpiarFiltro();
+                  }
+                }}
+                className="w-full px-4 py-1 text-gray-900 rounded-full focus:outline-none"
                 placeholder="Search"
                 x-model="search"
               />
@@ -57,10 +82,10 @@ const Productos = () => {
             <div>
               <button
                 type="submit"
-                class="bg-green-300 flex items-center justify-center w-12 h-12 text-gray-100 rounded-full"
+                className="bg-green-300 flex items-center justify-center w-12 h-12 text-gray-100 rounded-full"
               >
                 <svg
-                  class="w-5 h-5"
+                  className="w-5 h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -148,7 +173,7 @@ const TableItem = ({ nombre, valor, inventario, desc, Id }) => {
       <td className="p-3">
         {/* //TODO: agergar id del producto */}
         <Link to={`/admin/detalle-producto/${Id}`}>
-          <i class="bx bx-edit-alt" aria-label="Editar"></i>
+          <i className="bx bx-edit-alt" aria-label="Editar"></i>
         </Link>
       </td>
     </tr>
