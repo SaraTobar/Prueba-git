@@ -11,67 +11,75 @@ import Usuarios from "./pages/admin/Usuarios";
 import DetalleUsuario from "./pages/admin/Detalle-Usuario";
 import DetalleProducto from "./pages/admin/Detalle-producto";
 import DetalleVenta from "./pages/admin/Detalle-Venta";
+import { Auth0Provider } from "@auth0/auth0-react";
+
 function App() {
   return (
-    <div className="App">
-      <Router>
-        <Switch>
-          <Route path={["/admin"]}>
-            <Switch>
-              <Route path="/admin/detalle-usuario/:id">
-                <Admin>
-                  <DetalleUsuario />
-                </Admin>
-              </Route>
-              <Route path="/admin/usuarios">
-                <Admin>
-                  <Usuarios />
-                </Admin>
-              </Route>
-              {/* TODO: Route para detalle venta con :id */}
-              <Route path="/admin/detalle-Venta/:id">
-                <Admin>
-                  <DetalleVenta />
-                </Admin>
-              </Route>
-              <Route path="/admin/detalle-producto/:id">
-                <Admin>
-                  <DetalleProducto />
-                </Admin>
-              </Route>
-              <Route path="/admin/crear-producto">
-                <Admin>
-                  <CrearProducto />
-                </Admin>
-              </Route>
-              <Route path="/admin/productos">
-                <Admin>
-                  <Productos />
-                </Admin>
-              </Route>
-              <Route path="/admin/crear-venta">
-                <Admin>
-                  <CrearVenta />
-                </Admin>
-              </Route>
-              <Route path="/admin/ventas">
-                <Admin>
-                  <Ventas />
-                </Admin>
-              </Route>
-              <Route path="/admin">
-                <Admin>
-                  <div>Admin Main</div>
-                </Admin>
-              </Route>
-            </Switch>
-          </Route>
-          <Route path="/">
-            <Login />
-          </Route>
-        </Switch>
-      </Router>
-    </div>
+    <Auth0Provider
+      domain="proyecto-logitech-misiontic.us.auth0.com"
+      clientId="68pjqQan9oQ8JMMczyBpy5xpRyF1pVqn"
+      redirectUri={window.location.origin + "/admin"}
+    >
+      <div className="App">
+        <Router>
+          <Switch>
+            <Route path={["/admin"]}>
+              <Switch>
+                <Route path="/admin/detalle-usuario/:id">
+                  <Admin>
+                    <DetalleUsuario />
+                  </Admin>
+                </Route>
+                <Route path="/admin/usuarios">
+                  <Admin>
+                    <Usuarios />
+                  </Admin>
+                </Route>
+                {/* TODO: Route para detalle venta con :id */}
+                <Route path="/admin/detalle-Venta/:id">
+                  <Admin>
+                    <DetalleVenta />
+                  </Admin>
+                </Route>
+                <Route path="/admin/detalle-producto/:id">
+                  <Admin>
+                    <DetalleProducto />
+                  </Admin>
+                </Route>
+                <Route path="/admin/crear-producto">
+                  <Admin>
+                    <CrearProducto />
+                  </Admin>
+                </Route>
+                <Route path="/admin/productos">
+                  <Admin>
+                    <Productos />
+                  </Admin>
+                </Route>
+                <Route path="/admin/crear-venta">
+                  <Admin>
+                    <CrearVenta />
+                  </Admin>
+                </Route>
+                <Route path="/admin/ventas">
+                  <Admin>
+                    <Ventas />
+                  </Admin>
+                </Route>
+                <Route path="/admin">
+                  <Admin>
+                    <div>Admin Main</div>
+                  </Admin>
+                </Route>
+              </Switch>
+            </Route>
+            <Route path="/">
+              <Login />
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+    </Auth0Provider>
   );
 }
 
