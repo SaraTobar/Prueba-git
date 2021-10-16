@@ -4,10 +4,11 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import "./Main.css";
 import { Dialog, Tooltip } from '@material-ui/core';
+import _, { filter } from "underscore";
 
 const Ventas = () => {
   const [mostrarTabla, setMostrarTabla] = useState(true);
-  const [ventas, setProductos] = useState([]);
+  const [ventas, setVentas] = useState([]);
 
   const ObtenerVentas = async () => {
     const options = {
@@ -21,7 +22,7 @@ const Ventas = () => {
     await axios
       .request(options)
       .then(function (response) {
-        setProductos(response.data);
+        setVentas(response.data);
       })
       .catch(function (error) {
         console.error(error);
@@ -35,6 +36,21 @@ const Ventas = () => {
     }
   }, [mostrarTabla]);
 
+  const aplicarFiltro = (filtro) => {
+    var filtered = _(ventas).filter((p) => {
+      return (
+        p.NombreCliente.toLowerCase().includes(filtro.toLowerCase()) ||
+        p.IdCliente.toLowerCase().includes(filtro.toLowerCase())
+      );
+    });
+
+    setVentas(filtered);
+    console.log(filtered);
+  };
+
+  const limpiarFiltro = () => {
+    ObtenerVentas();
+  };
   return (
     <div>
       <link
@@ -50,6 +66,12 @@ const Ventas = () => {
             <div class="w-full">
               <input
                 type="search"
+                onChange={(x) => {
+                  aplicarFiltro(x.target.value);
+                  if (x.target.value.length == 0) {
+                    limpiarFiltro();
+                  }
+                }}
                 class="w-full px-4 py-1 text-gray-900 rounded-full focus:outline-none"
                 placeholder="Search"
                 x-model="search"
