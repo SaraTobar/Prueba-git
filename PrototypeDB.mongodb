@@ -54,7 +54,117 @@ db.createCollection(collection, {
 db.getCollection(collection).createIndex({ email: 1 }, { unique: true });
 db.getCollection(collection).createIndex({ documentId: 1 }, { unique: true });
 
-const users = ["Datos melina"];
+const users = [
+  {
+    "email": "juanp@gmail.com",
+    "documentId": Long('1035984638'),
+    "name": "Juan",
+    "lastName": "Perez",
+    "fullName": "Juan Perez",
+    "role": "admin",
+    "status": "pending",
+    "password": "Dwnie83hr"
+  },
+
+  {
+    "email": "rame237@gmail.com",
+    "documentId": Long('1066821908'),
+    "name": "Raul",
+    "lastName": "Mendez",
+    "fullName": "Raul Mendez",
+    "role": "admin",
+    "status": "pending",
+    "password": "Mienf38fwq"
+  },
+
+  {
+    "email": "estherramo@gmail.com",
+    "documentId": Long('1045782038'),
+    "name": "Esther",
+    "lastName": "Ramirez",
+    "fullName": "Esther Ramirez",
+    "role": "leader",
+    "status": "pending",
+    "password": "mueb62iFopk"
+  },
+
+  {
+    "email": "gabnu98@gmail.com",
+    "documentId": Long('73645289'),
+    "name": "Gabriel",
+    "lastName": "Nuñez",
+    "fullName": "Gabriel Nuñez",
+    "role": "Leader",
+    "status": "pending",
+    "password": "0FEwKea6t"
+  },
+
+  {
+    "email": "noeur87@gmail.com",
+    "documentId": Long('1078826547'),
+    "name": "Noelia",
+    "lastName": "Urina",
+    "fullName": "Noelia Urina",
+    "role": "student",
+    "status": "pending",
+    "password": "8M0CkrwKeDT"
+  },
+
+  {
+    "email": "estver781@gmail.com",
+    "documentId": Long('1037943638'),
+    "name": "Estela",
+    "lastName": "Vergara",
+    "fullName": "Estela Vergara",
+    "role": "student",
+    "status": "pending",
+    "password": "eiKvDTjseuuyrqw78"
+  },
+
+  {
+    "email": "gabfer153@gmail.com",
+    "documentId": Long('1057828294'),
+    "name": "Gabriel",
+    "lastName": "Fernandez",
+    "fullName": "Gabriel Fernandez",
+    "role": "student",
+    "status": "pending",
+    "password": "ma3p2aM0Cec"
+  },
+
+  {
+    "email": "diamur463@gmail.com",
+    "documentId": Long('38615497'),
+    "name": "Diana",
+    "lastName": "Murillo",
+    "fullName": "Diana Murillo",
+    "role": "student",
+    "status": "pending",
+    "password": "Jn823h34rjk"
+  },
+
+  {
+    "email": "hernor50@gmail.com",
+    "documentId": Long('1073900478'),
+    "name": "Hernando",
+    "lastName": "Orozco",
+    "fullName": "Hernando Orozco",
+    "role": "student",
+    "status": "pending",
+    "password": "efgqE37r3"
+  },
+
+  {
+    "email": "amaben1338@gmail.com",
+    "documentId": Long('1046215408'),
+    "name": "Amalia",
+    "lastName": "Benjumea",
+    "fullName": "Amalia Benjumea",
+    "role": "student",
+    "status": "pending",
+    "password": "fosir93289r"
+  }
+  ];
 
 // Insert users
 db.getCollection(collection).insertMany(users);
