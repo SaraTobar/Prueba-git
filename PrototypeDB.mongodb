@@ -1,184 +1,45 @@
-// MongoDB Playground
-// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+//Enrollments
 
-// BD name
-const database = 'project-prototype;
-
-// The current database to use.
-use(database);
-
-// users collection
-
-let collection = 'users';
-
-// Drop users collection
-db.getCollection(collection).drop();
-
-// Create a users collection
-db.createCollection(collection, {
-  validator: {
-    $jsonSchema: {
-      required: ['email', 'documentId', 'name', 'lastName', 'fullName', 'role', 'status'],
-      properties: {
-        email: {
-          bsonType: 'string',
-          pattern: '^[a-z0-9+_.-]+@[a-z0-9.-]+$'
-        },
-        documentId: {
-          bsonType: 'long',
-        },
-        name: {
-          bsonType: 'string'
-        },
-        lastName: {
-          bsonType: 'string'
-        },
-        fullName: {
-          bsonType: 'string'
-        },
-        role: {
-          enum: ["admin", "leader", "student"]
-        },
-        status: {
-          enum: ["pending", "authorized", "unauthorized"]
-        },
-        password: {
-          bsonType: 'string'
-        }
-      }
-    }
+// Insert a few documents into the sales collection.
+db.enrollments.insertMany([
+  {
+    "project_id": db.projects.findOne({name: 'Prototype'}, {_id: 1})._id,
+    "user_id": db.users.findOne({email: 'juanp@gmail.com'}, {_id: 1})._id
+  },
+  {
+    "project_id": db.projects.findOne({name: 'Prototype'}, {_id: 1})._id,
+    "user_id": db.users.findOne({email: 'rame237@gmail.com'}, {_id: 1})._id
+  },
+  {
+    "project_id": db.projects.findOne({name: 'Prototype Plus'}, {_id: 1})._id,
+    "user_id": db.users.findOne({email: 'estherramo@gmail.com'}, {_id: 1})._id
+  },
+  {
+    "project_id": db.projects.findOne({name: 'Prototype Plus'}, {_id: 1})._id,
+    "user_id": db.users.findOne({email: 'gabnu98@gmail.com'}, {_id: 1})._id
+  },
+  {
+    "project_id": db.projects.findOne({name: 'Prototype App'}, {_id: 1})._id,
+    "user_id": db.users.findOne({email: 'noeur87@gmail.com'}, {_id: 1})._id
+  },
+  {
+    "project_id": db.projects.findOne({name: 'Prototype App'}, {_id: 1})._id,
+    "user_id": db.users.findOne({email: 'estver781@gmail.com'}, {_id: 1})._id
+  },
+  {
+    "project_id": db.projects.findOne({name: 'Prototype Mechanical'}, {_id: 1})._id,
+    "user_id": db.users.findOne({email: 'hernor50@gmail.com'}, {_id: 1})._id
+  },
+  {
+    "project_id": db.projects.findOne({name: 'Prototype Mechanical'}, {_id: 1})._id,
+    "user_id": db.users.findOne({email: 'amaben1338@gmail.com'}, {_id: 1})._id
+  },
+  {
+    "project_id": db.projects.findOne({name: 'Prototype Mechanical APP'}, {_id: 1})._id,
+    "user_id": db.users.findOne({email: 'gabfer153@gmail.com'}, {_id: 1})._id
+  },
+  {
+    "project_id": db.projects.findOne({name: 'Prototype Mechanical APP'}, {_id: 1})._id,
+    "user_id": db.users.findOne({email: 'diamur463@gmail.com'}, {_id: 1})._id
   }
-});
-
-// Create unique index for email and documentId
-db.getCollection(collection).createIndex({ email: 1 }, { unique: true });
-db.getCollection(collection).createIndex({ documentId: 1 }, { unique: true });
-
-const users = ["Datos melina"];
-
-// Insert users
-db.getCollection(collection).insertMany(users);
-
-// projects collection
-
-collection = 'projects';
-
-// Drop projects collections
-db.getCollection(collection).drop();
-
-// Create projects collection
-db.createCollection(collection, {
-  validator: {
-    $jsonSchema: {
-      required: ['name', 'generalObjective', 'specificObjectives', 'budget', 'startDate', 'endDate', 'leader_id', 'status'],
-      properties: {
-        name: {
-          bsonType: 'string',
-        },
-        generalObjective: {
-          bsonType: 'string'
-        },
-        specificObjectives: {
-          bsonType: 'array'
-        },
-        budget: {
-          bsonType: 'decimal'
-        },
-        startDate: {
-          bsonType: 'date'
-        },
-        endDate: {
-          bsonType: 'date'
-        },
-        leader_id: {
-          bsonType: 'objectId'
-        },
-        status: {
-          enum: ['active', 'inactive']
-        },
-        phase: {
-          enum: ['started', 'in progress', 'ended']
-        }
-      }
-    }
-  }
-});
-
-const projects = ["Datos Santiago"];
-
-// Insert projects
-db.getCollection(collection).insertMany(projects);
-
-// enrollments collection
-
-collection = 'enrollments';
-
-// Drop enrollments collection
-db.getCollection(collection).drop();
-
-db.createCollection(collection, {
-  validator: {
-    $jsonSchema: {
-      required: ['project_id', 'user_id'],
-      properties: {
-        project_id: {
-          bsonType: 'objectId',
-        },
-        user_id: {
-          bsonType: 'objectId'
-        },
-        status: {
-          enum: ['acepted', 'rejected']
-        },
-        enrollmentDate: {
-          bsonType: 'date'
-        },
-        egressDate: {
-          bsonType: 'date'
-        }
-      }
-    }
-  }
-});
-
-// Create unique index for project_id and user_id
-db.getCollection(collection).createIndex({ project_id: 1, user_id: 1 }, { unique: true, name: '_project_user_' });
-
-const enrollments = ["datos Santiago"];
-
-// Insert enrollments
-db.getCollection(collection).insertMany(enrollments);
-
-// advances collection
-collection = 'advances'
-
-// Drop advances collection
-db.getCollection(collection).drop();
-
-// Create advances collection
-db.createCollection(collection, {
-  validator: {
-    $jsonSchema: {
-      required: ['project_id', 'addDate', 'description', 'observations'],
-      properties: {
-        project_id: {
-          bsonType: 'objectId',
-        },
-        addDate: {
-          bsonType: 'date'
-        },
-        description: {
-          bsonType: 'string'
-        },
-        observations: {
-          bsonType: 'string'
-        }
-      }
-    }
-  }
-});
-
-const advances = ["Datos Sara"];
-
-// Insert advances
-db.getCollection(collection).insertMany(advances);
+ ]);
