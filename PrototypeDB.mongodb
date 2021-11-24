@@ -214,10 +214,62 @@ db.createCollection(collection, {
   }
 });
 
-const projects = ["Datos Santiago"];
+//Datos de proyectos a crear
+const projects = [
+  {
+    "name": "Prototype",
+    "generalObjective": "Crear una app que permita gestionar proyectos",
+    "specificObjectives": ["Controlar el avance de los proyectos", "Mantener la información de las personas involucradas"],
+    "budget": Decimal128('25000000'),
+    "startDate": ISODate("2021-11-07T00:00:00Z"),
+    "endDate": ISODate("2021-12-19T00:00:00Z"),
+    "leader_id": db.users.findOne({email: 'estherramo@gmail.com'})._id,
+    "status": "active",
+  },
+  {
+    "name": "Prototype Plus",
+    "generalObjective": "Crear versión offline del app Prototype",
+    "specificObjectives": ["Mantener información en caché hasta tener conexión", "Cargar la info diligenciada cuando vuelva a tener red"],
+    "budget": Decimal128('10000000'),
+    "startDate": new Date(),
+    "endDate": new Date(new Date().getTime() + 60*24*60*60000),
+    "leader_id": db.users.findOne({email: 'estherramo@gmail.com'})._id,
+    "status": "inactive",
+  },
+  {
+    "name": "Prototype App",
+    "generalObjective": "Crear app de gestión de proyectos disponibles para dispositivos móviles",
+    "specificObjectives": ["Mantener mismas funcionalidades de la versión web del app","Permitir loguearse en ambas aplicaciones (web y app)"],
+    "budget": Decimal128('15000000'),
+    "startDate": new Date(),
+    "endDate": new Date(new Date().getTime() + 60*24*60*60000),
+    "leader_id": db.users.findOne({email: 'gabnu98@gmail.com'})._id,
+    "status": "inactive",
+  },
+  {
+    "name": "Prototype Mechanical",
+    "generalObjective": "Crear app Web para gestión de mantenimiento",
+    "specificObjectives": ["Permitir gestion de activos","Actualizar automáticamente la hoja de vida con cada uno de los servicios prestados"],
+    "budget": Decimal128('35000000'),
+    "startDate": new Date(),
+    "endDate": new Date(new Date().getTime() + 60*24*60*60000),
+    "leader_id": db.users.findOne({email: 'gabnu98@gmail.com'})._id,
+    "status": "inactive",
+  },
+  {
+    "name": "Prototype Mechanical APP",
+    "generalObjective": "Crear app movil para gestión de mantenimiento",
+    "specificObjectives": ["Permitir gestion de activos","Actualizar automáticamente la hoja de vida con cada uno de los servicios prestados"],
+    "budget": Decimal128('15000000'),
+    "startDate": new Date(),
+    "endDate": new Date(new Date().getTime() + 60*24*60*60000),
+    "leader_id": db.users.findOne({email: 'gabnu98@gmail.com'})._id,
+    "status": "inactive",
+  }
+];
 
-// Insert projects
-db.getCollection(collection).insertMany(projects);
+//Inserción de Proyectos
+db.getCollection('projects').insertMany(projects);
 
 // enrollments collection
 
