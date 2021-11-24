@@ -1,0 +1,63 @@
+// MongoDB Playground
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+
+// BD name
+const database = 'project-prototype;
+
+// The current database to use.
+use(database);
+
+// Advances
+
+//db.advances.insertMany([
+  {  'project_id': db.projects.findOne({name: 'Prototype'}, {_id: 1})._id,
+     "addDate": new Date(),
+     "description": 'La aplicación empieza a reconocer correctamente los proyectos', 
+     "observations": 'Es un buen avance, tener en cuenta las diferentes funciones que debe tener y como relacionarlas de manera efectiva'
+  },
+  { 'project_id': db.projects.findOne({name: 'Prototype'}, {_id: 1})._id, 
+    "addDate": new Date(), 
+    "description": 'La aplicación admistra correctamente los proyectos seleccionados, y ya esta configurado para organizar los proyectos de acuerdo a la fecha de actualización de estos', 
+    "observations": 'Hacen falta las opciones para cambiar el tipo de organización deseados por el usuario' 
+  },
+  { 'project_id': db.projects.findOne({name: 'Prototype'}, {_id: 1})._id, 
+    "addDate": new Date(), 
+    "description": 'La aplicación presenta algunos fallos a la hora de optimizar el procedimiento de gestionar los proyectos', 
+    "observations": 'Revisar el procedimiento ya que tiene algunos fallos en la configuración de la optimización, en especial que esten incluidos todas las opciones establecidas' 
+  },
+  { 'project_id': db.projects.findOne({name: 'Prototype Plus'}, {_id: 1})._id, 
+    "addDate": new Date(), 
+    "description": 'La aplicación ya tiene establecidas las diferentes funciones que ésta requiere, se está revisando la inicialización de esta ya que esta presentando algunos fallos', 
+    "observations": 'Revisar que esten bien programadas las conexiones '
+  },
+  { 'project_id': db.projects.findOne({name: 'Prototype Plus'}, {_id: 1})._id, 
+    "addDate": new Date(), 
+    "description": 'La primera parte de la aplicación funciona correctamente, se esta optimizando el sistema para que funcione de manera optima al estar offline', 
+    "observations": 'Tener en cuenta la descripción del proyecto como guía para realizar correctamente esa última parte' 
+  },
+  { 'project_id': db.projects.findOne({name: 'Prototype Plus'}, {_id: 1})._id, 
+    "addDate": new Date(), 
+    "description": 'La aplicación funciona correctamente de manera offline, hace falta optimizar algunas partes para que esta se ejecute de manera mas eficaz', 
+    "observations": 'Realizar revisión del código y hacerlo más legible, utilizar las descripciones dadas' 
+  },
+  { 'project_id': db.projects.findOne({name: 'Prototype Mechanical'}, {_id: 1})._id, 
+    "addDate": new Date(), 
+    "description": 'La aplicación ya tiene el esquema de como debe estar organizado para que funcione correctamente', 
+    "observations": 'Tener en cuenta que la parte de escanear el navegador debe de estar configurada para que ocurra de forma ordenada' 
+  },
+  { 'project_id': db.projects.findOne({name: 'Prototype Mechanical'}, {_id: 1})._id, 
+    "addDate": new Date(), 
+    "description": 'La aplicacióncunple crrectamente la funcion de escanear los problemas establecidos en el navegador', 
+    "observations": 'Incluir los problemas actualizados recientemente' 
+  },
+  { 'project_id': db.projects.findOne({name: 'Prototype Mechanical'}, {_id: 1})._id, 
+    "addDate": new Date(), 
+    "description": 'La aplicación ya está configurada para encontrar la manera más optima de solucionar el problema detectado', 
+    "observations": 'Recordar que la solucion debe presentar un orden establecido el cual no esta cumpliendo' 
+  },
+  { 'project_id': db.projects.findOne({name: 'Prototype Mechanical'}, {_id: 1})._id, 
+    "addDate": new Date(), 
+    "description": 'La aplicación ya gestiona correctamente el navegador y cumple la función de reparar el problema encontrado', 
+    "observations": 'Optimizar la aplicación para que no se demore tanto encontrando el problema y la solucion detectada' 
+  },
+]);
