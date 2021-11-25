@@ -1,27 +1,18 @@
-import Users from "../models/users.model.js";
+import userResolver from "./users.resolvers.js";
+import projectResolver from "./project.resolvers.js";
 
-const allUsers = async (parent, args, context, info) => {
-  const users = await Users.find();
-  return users;
-};
+const { Query: userQueries, Mutation: userMutations, ...userRest } = userResolver;
+const { Query: projectQueries, Mutation: projectMutations, ...projectRest } = projectResolver;
 
-const user = async (parent, args, context, info) => {
-  const user = await Users.findById(args._id);
-  return user;
-};
-
-const addUser = async (parent, args, context, info) => {
-  let user = new Users(args.input);
-  user = await user.save();
-  return user;
-}
-
-export default {
+export default{
   Query: {
-    allUsers,
-    user
+    ...userQueries,
+    ...projectQueries,
   },
   Mutation: {
-    addUser,
-  }
-}
+    ...userMutations,
+    ...projectMutations,
+  },
+  ...userRest,
+  ...projectRest
+};
