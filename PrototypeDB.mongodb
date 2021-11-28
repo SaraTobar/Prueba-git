@@ -275,6 +275,8 @@ db.getCollection('projects').insertMany(projects);
 
 collection = 'enrollments';
 
+
+
 // Drop enrollments collection
 db.getCollection(collection).drop();
 
@@ -306,7 +308,50 @@ db.createCollection(collection, {
 // Create unique index for project_id and user_id
 db.getCollection(collection).createIndex({ project_id: 1, user_id: 1 }, { unique: true, name: '_project_user_' });
 
-const enrollments = ["datos Santiago"];
+const enrollments = [
+
+  {
+    "project_id": db.projects.findOne({name: 'Prototype'}, {_id: 1})._id,
+    "user_id": db.users.findOne({email: 'juanp@gmail.com'}, {_id: 1})._id
+  },
+  {
+    "project_id": db.projects.findOne({name: 'Prototype'}, {_id: 1})._id,
+    "user_id": db.users.findOne({email: 'rame237@gmail.com'}, {_id: 1})._id
+  },
+  {
+    "project_id": db.projects.findOne({name: 'Prototype Plus'}, {_id: 1})._id,
+    "user_id": db.users.findOne({email: 'estherramo@gmail.com'}, {_id: 1})._id
+  },
+  {
+    "project_id": db.projects.findOne({name: 'Prototype Plus'}, {_id: 1})._id,
+    "user_id": db.users.findOne({email: 'gabnu98@gmail.com'}, {_id: 1})._id
+  },
+  {
+    "project_id": db.projects.findOne({name: 'Prototype App'}, {_id: 1})._id,
+    "user_id": db.users.findOne({email: 'noeur87@gmail.com'}, {_id: 1})._id
+  },
+  {
+    "project_id": db.projects.findOne({name: 'Prototype App'}, {_id: 1})._id,
+    "user_id": db.users.findOne({email: 'estver781@gmail.com'}, {_id: 1})._id
+  },
+  {
+    "project_id": db.projects.findOne({name: 'Prototype Mechanical'}, {_id: 1})._id,
+    "user_id": db.users.findOne({email: 'hernor50@gmail.com'}, {_id: 1})._id
+  },
+  {
+    "project_id": db.projects.findOne({name: 'Prototype Mechanical'}, {_id: 1})._id,
+    "user_id": db.users.findOne({email: 'amaben1338@gmail.com'}, {_id: 1})._id
+  },
+  {
+    "project_id": db.projects.findOne({name: 'Prototype Mechanical APP'}, {_id: 1})._id,
+    "user_id": db.users.findOne({email: 'gabfer153@gmail.com'}, {_id: 1})._id
+  },
+  {
+    "project_id": db.projects.findOne({name: 'Prototype Mechanical APP'}, {_id: 1})._id,
+    "user_id": db.users.findOne({email: 'diamur463@gmail.com'}, {_id: 1})._id
+  }
+ 
+];
 
 // Insert enrollments
 db.getCollection(collection).insertMany(enrollments);
