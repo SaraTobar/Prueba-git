@@ -1,7 +1,315 @@
-//Enrollments
+// MongoDB Playground
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
 
-// Insert a few documents into the sales collection.
-db.enrollments.insertMany([
+// BD name
+const database = 'project-prototype;
+
+// The current database to use.
+use(database);
+
+// users collection
+
+let collection = 'users';
+
+// Drop users collection
+db.getCollection(collection).drop();
+
+// Create a users collection
+db.createCollection(collection, {
+  validator: {
+    $jsonSchema: {
+      required: ['email', 'documentId', 'name', 'lastName', 'fullName', 'role', 'status'],
+      properties: {
+        email: {
+          bsonType: 'string',
+          pattern: '^[a-z0-9+_.-]+@[a-z0-9.-]+$'
+        },
+        documentId: {
+          bsonType: 'long',
+        },
+        name: {
+          bsonType: 'string'
+        },
+        lastName: {
+          bsonType: 'string'
+        },
+        fullName: {
+          bsonType: 'string'
+        },
+        role: {
+          enum: ["admin", "leader", "student"]
+        },
+        status: {
+          enum: ["pending", "authorized", "unauthorized"]
+        },
+        password: {
+          bsonType: 'string'
+        }
+      }
+    }
+  }
+});
+
+// Create unique index for email and documentId
+db.getCollection(collection).createIndex({ email: 1 }, { unique: true });
+db.getCollection(collection).createIndex({ documentId: 1 }, { unique: true });
+
+const users = [
+  {
+    "email": "juanp@gmail.com",
+    "documentId": Long('1035984638'),
+    "name": "Juan",
+    "lastName": "Perez",
+    "fullName": "Juan Perez",
+    "role": "admin",
+    "status": "pending",
+    "password": "Dwnie83hr"
+  },
+
+  {
+    "email": "rame237@gmail.com",
+    "documentId": Long('1066821908'),
+    "name": "Raul",
+    "lastName": "Mendez",
+    "fullName": "Raul Mendez",
+    "role": "admin",
+    "status": "pending",
+    "password": "Mienf38fwq"
+  },
+
+  {
+    "email": "estherramo@gmail.com",
+    "documentId": Long('1045782038'),
+    "name": "Esther",
+    "lastName": "Ramirez",
+    "fullName": "Esther Ramirez",
+    "role": "leader",
+    "status": "pending",
+    "password": "mueb62iFopk"
+  },
+
+  {
+    "email": "gabnu98@gmail.com",
+    "documentId": Long('73645289'),
+    "name": "Gabriel",
+    "lastName": "Nuñez",
+    "fullName": "Gabriel Nuñez",
+    "role": "Leader",
+    "status": "pending",
+    "password": "0FEwKea6t"
+  },
+
+  {
+    "email": "noeur87@gmail.com",
+    "documentId": Long('1078826547'),
+    "name": "Noelia",
+    "lastName": "Urina",
+    "fullName": "Noelia Urina",
+    "role": "student",
+    "status": "pending",
+    "password": "8M0CkrwKeDT"
+  },
+
+  {
+    "email": "estver781@gmail.com",
+    "documentId": Long('1037943638'),
+    "name": "Estela",
+    "lastName": "Vergara",
+    "fullName": "Estela Vergara",
+    "role": "student",
+    "status": "pending",
+    "password": "eiKvDTjseuuyrqw78"
+  },
+
+  {
+    "email": "gabfer153@gmail.com",
+    "documentId": Long('1057828294'),
+    "name": "Gabriel",
+    "lastName": "Fernandez",
+    "fullName": "Gabriel Fernandez",
+    "role": "student",
+    "status": "pending",
+    "password": "ma3p2aM0Cec"
+  },
+
+  {
+    "email": "diamur463@gmail.com",
+    "documentId": Long('38615497'),
+    "name": "Diana",
+    "lastName": "Murillo",
+    "fullName": "Diana Murillo",
+    "role": "student",
+    "status": "pending",
+    "password": "Jn823h34rjk"
+  },
+
+  {
+    "email": "hernor50@gmail.com",
+    "documentId": Long('1073900478'),
+    "name": "Hernando",
+    "lastName": "Orozco",
+    "fullName": "Hernando Orozco",
+    "role": "student",
+    "status": "pending",
+    "password": "efgqE37r3"
+  },
+
+  {
+    "email": "amaben1338@gmail.com",
+    "documentId": Long('1046215408'),
+    "name": "Amalia",
+    "lastName": "Benjumea",
+    "fullName": "Amalia Benjumea",
+    "role": "student",
+    "status": "pending",
+    "password": "fosir93289r"
+  }
+  ];
+
+// Insert users
+db.getCollection(collection).insertMany(users);
+
+// projects collection
+
+collection = 'projects';
+
+// Drop projects collections
+db.getCollection(collection).drop();
+
+// Create projects collection
+db.createCollection(collection, {
+  validator: {
+    $jsonSchema: {
+      required: ['name', 'generalObjective', 'specificObjectives', 'budget', 'startDate', 'endDate', 'leader_id', 'status'],
+      properties: {
+        name: {
+          bsonType: 'string',
+        },
+        generalObjective: {
+          bsonType: 'string'
+        },
+        specificObjectives: {
+          bsonType: 'array'
+        },
+        budget: {
+          bsonType: 'decimal'
+        },
+        startDate: {
+          bsonType: 'date'
+        },
+        endDate: {
+          bsonType: 'date'
+        },
+        leader_id: {
+          bsonType: 'objectId'
+        },
+        status: {
+          enum: ['active', 'inactive']
+        },
+        phase: {
+          enum: ['started', 'in progress', 'ended']
+        }
+      }
+    }
+  }
+});
+
+//Datos de proyectos a crear
+const projects = [
+  {
+    "name": "Prototype",
+    "generalObjective": "Crear una app que permita gestionar proyectos",
+    "specificObjectives": ["Controlar el avance de los proyectos", "Mantener la información de las personas involucradas"],
+    "budget": Decimal128('25000000'),
+    "startDate": ISODate("2021-11-07T00:00:00Z"),
+    "endDate": ISODate("2021-12-19T00:00:00Z"),
+    "leader_id": db.users.findOne({email: 'estherramo@gmail.com'})._id,
+    "status": "active",
+  },
+  {
+    "name": "Prototype Plus",
+    "generalObjective": "Crear versión offline del app Prototype",
+    "specificObjectives": ["Mantener información en caché hasta tener conexión", "Cargar la info diligenciada cuando vuelva a tener red"],
+    "budget": Decimal128('10000000'),
+    "startDate": new Date(),
+    "endDate": new Date(new Date().getTime() + 60*24*60*60000),
+    "leader_id": db.users.findOne({email: 'estherramo@gmail.com'})._id,
+    "status": "inactive",
+  },
+  {
+    "name": "Prototype App",
+    "generalObjective": "Crear app de gestión de proyectos disponibles para dispositivos móviles",
+    "specificObjectives": ["Mantener mismas funcionalidades de la versión web del app","Permitir loguearse en ambas aplicaciones (web y app)"],
+    "budget": Decimal128('15000000'),
+    "startDate": new Date(),
+    "endDate": new Date(new Date().getTime() + 60*24*60*60000),
+    "leader_id": db.users.findOne({email: 'gabnu98@gmail.com'})._id,
+    "status": "inactive",
+  },
+  {
+    "name": "Prototype Mechanical",
+    "generalObjective": "Crear app Web para gestión de mantenimiento",
+    "specificObjectives": ["Permitir gestion de activos","Actualizar automáticamente la hoja de vida con cada uno de los servicios prestados"],
+    "budget": Decimal128('35000000'),
+    "startDate": new Date(),
+    "endDate": new Date(new Date().getTime() + 60*24*60*60000),
+    "leader_id": db.users.findOne({email: 'gabnu98@gmail.com'})._id,
+    "status": "inactive",
+  },
+  {
+    "name": "Prototype Mechanical APP",
+    "generalObjective": "Crear app movil para gestión de mantenimiento",
+    "specificObjectives": ["Permitir gestion de activos","Actualizar automáticamente la hoja de vida con cada uno de los servicios prestados"],
+    "budget": Decimal128('15000000'),
+    "startDate": new Date(),
+    "endDate": new Date(new Date().getTime() + 60*24*60*60000),
+    "leader_id": db.users.findOne({email: 'gabnu98@gmail.com'})._id,
+    "status": "inactive",
+  }
+];
+
+//Inserción de Proyectos
+db.getCollection('projects').insertMany(projects);
+
+// enrollments collection
+
+collection = 'enrollments';
+
+
+
+// Drop enrollments collection
+db.getCollection(collection).drop();
+
+db.createCollection(collection, {
+  validator: {
+    $jsonSchema: {
+      required: ['project_id', 'user_id'],
+      properties: {
+        project_id: {
+          bsonType: 'objectId',
+        },
+        user_id: {
+          bsonType: 'objectId'
+        },
+        status: {
+          enum: ['acepted', 'rejected']
+        },
+        enrollmentDate: {
+          bsonType: 'date'
+        },
+        egressDate: {
+          bsonType: 'date'
+        }
+      }
+    }
+  }
+});
+
+// Create unique index for project_id and user_id
+db.getCollection(collection).createIndex({ project_id: 1, user_id: 1 }, { unique: true, name: '_project_user_' });
+
+const enrollments = [
+
   {
     "project_id": db.projects.findOne({name: 'Prototype'}, {_id: 1})._id,
     "user_id": db.users.findOne({email: 'juanp@gmail.com'}, {_id: 1})._id
@@ -42,4 +350,42 @@ db.enrollments.insertMany([
     "project_id": db.projects.findOne({name: 'Prototype Mechanical APP'}, {_id: 1})._id,
     "user_id": db.users.findOne({email: 'diamur463@gmail.com'}, {_id: 1})._id
   }
- ]);
+ 
+];
+
+// Insert enrollments
+db.getCollection(collection).insertMany(enrollments);
+
+// advances collection
+collection = 'advances'
+
+// Drop advances collection
+db.getCollection(collection).drop();
+
+// Create advances collection
+db.createCollection(collection, {
+  validator: {
+    $jsonSchema: {
+      required: ['project_id', 'addDate', 'description', 'observations'],
+      properties: {
+        project_id: {
+          bsonType: 'objectId',
+        },
+        addDate: {
+          bsonType: 'date'
+        },
+        description: {
+          bsonType: 'string'
+        },
+        observations: {
+          bsonType: 'string'
+        }
+      }
+    }
+  }
+});
+
+const advances = ["Datos Sara"];
+
+// Insert advances
+db.getCollection(collection).insertMany(advances);
